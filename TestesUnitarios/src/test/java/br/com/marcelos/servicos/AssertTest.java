@@ -12,7 +12,7 @@ public class AssertTest {
 		Assert.assertFalse(false);
 		
 		//Podemos trabalhar com valores:
-		//Interge, short, long, e até boolean		
+		//Interge, short, long, e ate boolean. 		
 		Assert.assertEquals(1, 1);
 	}
 
