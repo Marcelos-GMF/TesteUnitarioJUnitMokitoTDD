@@ -16,7 +16,7 @@ public class LocacaoServiceTest {
 		
 		//Cenario
 		LocacaoService locacaoService = new LocacaoService();
-		Usuario usuario = new Usuario("Marcelos 1");
+		Usuario usuario = new Usuario("Marcelos teste unitario");
 		Filme filme = new Filme("Marcelos Filme", 2, 5.0);
 		
 		//Acao
