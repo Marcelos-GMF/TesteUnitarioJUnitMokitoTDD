@@ -7,6 +7,7 @@ import java.util.Date;
 import br.com.marcelos.entidades.Filme;
 import br.com.marcelos.entidades.Locacao;
 import br.com.marcelos.entidades.Usuario;
+import br.com.marcelos.exceptions.FilmeSemEstoqueException;
 
 public class LocacaoService {
 	
@@ -19,7 +20,7 @@ public class LocacaoService {
 	public Locacao alugarFilme(Usuario usuario, Filme filme) throws Exception {
 		
 		if(filme.getEstoque() == 0) {
-			throw new Exception("Sem filme no estoque!");
+			throw new FilmeSemEstoqueException();
 		}
 		
 		Locacao locacao = new Locacao();

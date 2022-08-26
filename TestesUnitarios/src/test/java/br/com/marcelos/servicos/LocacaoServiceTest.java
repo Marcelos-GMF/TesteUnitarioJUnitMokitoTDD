@@ -14,6 +14,7 @@ import org.junit.rules.ExpectedException;
 import br.com.marcelos.entidades.Filme;
 import br.com.marcelos.entidades.Locacao;
 import br.com.marcelos.entidades.Usuario;
+import br.com.marcelos.exceptions.FilmeSemEstoqueException;
 import br.com.marcelos.utils.DataUtils;
 
 public class LocacaoServiceTest {
@@ -21,7 +22,7 @@ public class LocacaoServiceTest {
 	/* Conseguimos agrupar os erros */
 	@Rule
 	public ErrorCollector error = new ErrorCollector();
-	
+
 	/* Outra forma de excecao */
 	@Rule
 	public ExpectedException excecaoEsperada = ExpectedException.none();
@@ -80,7 +81,8 @@ public class LocacaoServiceTest {
 	 * Teste ELEGANTE, onde incluimos que estamos esperando exceções Onde existe uma
 	 * exceção, mas não ocorre o erro
 	 */
-	@Test(expected = Exception.class)
+	// @Test(expected = Exception.class)
+	@Test(expected = FilmeSemEstoqueException.class) // Minha exception especifica
 	public void testeLocacao_semFilmeEstoque() throws Exception {
 
 		// Cenario
@@ -94,42 +96,38 @@ public class LocacaoServiceTest {
 	}
 
 	/* Exemplo eu controlando os erros, ao inves do JUinit */
-	@Test
-	public void testeLocacao_semFilmeEstoqueDev() {
-
-		// Cenario
-		LocacaoService locacaoService = new LocacaoService();
-		Usuario usuario = new Usuario("Marcelos 01");
-		Filme filme = new Filme("Doutor estranho", 0, 5.0);
-
-		// Ação
-		try {
-			locacaoService.alugarFilme(usuario, filme);
-			/* Forma robusta de tratar um erro, para não lancar um falso positivo */
-			Assert.fail("Erro: Tem filmes no estoque para o aluguel. tendo em vista verificar sem filmes no estoque!");
-		} catch (Exception e) {
-			Assert.assertThat(e.getMessage(), is("Sem filme no estoque!"));
-		}
-
-	}
-	
-	/* Terceira forma de excecao */
-	@Test
-	public void testeLocacao_semFilmeEstoqueExpectedException() throws Exception {
-
-		
-		// Cenario
-		LocacaoService locacaoService = new LocacaoService();
-		Usuario usuario = new Usuario("Marcelos 01");
-		Filme filme = new Filme("Doutor estranho", 0, 5.0);
-		
-		//Tem que colocar antes da chamada do metodo
-		excecaoEsperada.expect(Exception.class);
-		excecaoEsperada.expectMessage("Sem filme no estoque!");
-
-		// Ação
-		locacaoService.alugarFilme(usuario, filme);
-
-	}
+	/*
+	 * @Test public void testeLocacao_semFilmeEstoqueDev() {
+	 * 
+	 * // Cenario LocacaoService locacaoService = new LocacaoService(); Usuario
+	 * usuario = new Usuario("Marcelos 01"); Filme filme = new
+	 * Filme("Doutor estranho", 0, 5.0);
+	 * 
+	 * // Ação try { locacaoService.alugarFilme(usuario, filme); Forma robusta de
+	 * tratar um erro, para não lancar um falso positivo Assert.
+	 * fail("Erro: Tem filmes no estoque para o aluguel. tendo em vista verificar sem filmes no estoque!"
+	 * ); } catch (Exception e) { Assert.assertThat(e.getMessage(),
+	 * is("Sem filme no estoque!")); }
+	 * 
+	 * }
+	 * 
+	 * Terceira forma de excecao
+	 * 
+	 * @Test public void testeLocacao_semFilmeEstoqueExpectedException() throws
+	 * Exception {
+	 * 
+	 * 
+	 * // Cenario LocacaoService locacaoService = new LocacaoService(); Usuario
+	 * usuario = new Usuario("Marcelos 01"); Filme filme = new
+	 * Filme("Doutor estranho", 0, 5.0);
+	 * 
+	 * //Tem que colocar antes da chamada do metodo
+	 * excecaoEsperada.expect(Exception.class);
+	 * excecaoEsperada.expectMessage("Sem filme no estoque!");
+	 * 
+	 * // Ação locacaoService.alugarFilme(usuario, filme);
+	 * 
+	 * }
+	 */
 
 }
