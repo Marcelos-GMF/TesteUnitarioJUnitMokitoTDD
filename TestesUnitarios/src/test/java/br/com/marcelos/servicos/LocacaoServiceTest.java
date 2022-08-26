@@ -2,6 +2,7 @@ package br.com.marcelos.servicos;
 
 import java.util.Date;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import br.com.marcelos.entidades.Filme;
@@ -23,9 +24,14 @@ public class LocacaoServiceTest {
 		Locacao locacao = locacaoService.alugarFilme(usuario, filme);
 		
 		//Verificacao
-		System.out.println(locacao.getValor() == 5.0);
-		System.out.println("Data locacao = " + DataUtils.isMesmaData(locacao.getDataLocacao(), new Date()) );
-		System.out.println("Data do retorno = " + DataUtils.isMesmaData(locacao.getDataRetorno(), DataUtils.obterDataComDiferencaDias(2)) );
+		//System.out.println(locacao.getValor() == 5.0);
+		//System.out.println("Data locacao = " + DataUtils.isMesmaData(locacao.getDataLocacao(), new Date()) );
+		//System.out.println("Data do retorno = " + DataUtils.isMesmaData(locacao.getDataRetorno(), DataUtils.obterDataComDiferencaDias(2)) );
+
+		Assert.assertEquals(locacao.getValor(), 5.0, 0.01);
+		Assert.assertTrue("Data locacao = ", DataUtils.isMesmaData(locacao.getDataLocacao(), new Date()));
+		Assert.assertTrue("Data do retorno = ", DataUtils.isMesmaData(locacao.getDataRetorno(), DataUtils.obterDataComDiferencaDias(1)));
+				
 	}
 
 }
