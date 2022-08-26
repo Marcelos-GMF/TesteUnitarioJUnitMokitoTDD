@@ -7,7 +7,9 @@ import java.util.Date;
 
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ErrorCollector;
 
 import br.com.marcelos.entidades.Filme;
 import br.com.marcelos.entidades.Locacao;
@@ -15,6 +17,10 @@ import br.com.marcelos.entidades.Usuario;
 import br.com.marcelos.utils.DataUtils;
 
 public class LocacaoServiceTest {
+	
+	/* Conseguimos agrupar os erros */
+	@Rule
+	public ErrorCollector error = new ErrorCollector();
 	
 	@Test
 	public void marcelos() {
@@ -42,15 +48,16 @@ public class LocacaoServiceTest {
 
 		//Com importe statico. Botão direito source > add import
 		assertThat(locacao.getValor(), is(5.0));
-		//Com importe statico. Botão direito source > add import
+		//Com importe statico. Botão direito source > add import		
+		//Assert.assertEquals(locacao.getValor(), 5.0, 0.01);
+		//Assert.assertTrue("Data locacao = ", DataUtils.isMesmaData(locacao.getDataLocacao(), new Date()));
+		//Assert.assertTrue("Data do retorno = ", DataUtils.isMesmaData(locacao.getDataRetorno(), DataUtils.obterDataComDiferencaDias(1)));
+		//Assert.assertThat("Data locacao = ", DataUtils.isMesmaData(locacao.getDataLocacao(), new Date()), is(true));
+		//Assert.assertThat("Data do retorno = ", DataUtils.isMesmaData(locacao.getDataRetorno(), DataUtils.obterDataComDiferencaDias(1)), is(true));
 		
-		Assert.assertEquals(locacao.getValor(), 5.0, 0.01);
-		Assert.assertTrue("Data locacao = ", DataUtils.isMesmaData(locacao.getDataLocacao(), new Date()));
-		Assert.assertTrue("Data do retorno = ", DataUtils.isMesmaData(locacao.getDataRetorno(), DataUtils.obterDataComDiferencaDias(1)));
-		
-		
-		Assert.assertThat("Data locacao = ", DataUtils.isMesmaData(locacao.getDataLocacao(), new Date()), is(true));
-		Assert.assertThat("Data do retorno = ", DataUtils.isMesmaData(locacao.getDataRetorno(), DataUtils.obterDataComDiferencaDias(1)), is(true));
+		error.checkThat(locacao.getValor(), CoreMatchers.is(CoreMatchers.equalTo(5.0)));		
+		error.checkThat("Data locacao = ", DataUtils.isMesmaData(locacao.getDataLocacao(), new Date()), is(true));
+		error.checkThat("Data do retorno = ", DataUtils.isMesmaData(locacao.getDataRetorno(), DataUtils.obterDataComDiferencaDias(1)), is(true));
 		
 	}
 
