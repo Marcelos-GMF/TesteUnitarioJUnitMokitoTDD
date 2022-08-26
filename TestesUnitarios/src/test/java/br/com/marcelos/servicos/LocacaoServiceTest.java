@@ -5,7 +5,9 @@ import static org.hamcrest.CoreMatchers.is;
 import java.util.Date;
 
 import org.hamcrest.CoreMatchers;
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ErrorCollector;
@@ -19,6 +21,8 @@ import br.com.marcelos.exceptions.LocadoraException;
 import br.com.marcelos.utils.DataUtils;
 
 public class LocacaoServiceTest {
+	
+	private LocacaoService locacaoService;
 
 	/* Conseguimos agrupar os erros */
 	@Rule
@@ -27,12 +31,22 @@ public class LocacaoServiceTest {
 	/* Outra forma de excecao */
 	@Rule
 	public ExpectedException excecaoEsperada = ExpectedException.none();
+	
+	@Before
+	public void executaAntes() {
+		System.out.println("Antes da execucao");
+		locacaoService = new LocacaoService();
+	}
+	
+	@After
+	public void executaDepois() {
+		System.out.println("Depois da execucao");
+	}
 
 	@Test
 	public void marcelosLocacao() throws Exception {
 
 		// Cenario
-		LocacaoService locacaoService = new LocacaoService();
 		Usuario usuario = new Usuario("Marcelos teste unitario");
 		Filme filme = new Filme("Marcelos Filme", 2, 5.0);
 
@@ -87,7 +101,6 @@ public class LocacaoServiceTest {
 	public void testeLocacao_semFilmeEstoque() throws Exception {
 
 		// Cenario
-		LocacaoService locacaoService = new LocacaoService();
 		Usuario usuario = new Usuario("Marcelos 01");
 		Filme filme = new Filme("Doutor estranho", 0, 5.0);
 
@@ -136,7 +149,6 @@ public class LocacaoServiceTest {
 	  public void testeLocacao_UsuarioVazio() throws FilmeSemEstoqueException  {
 	  
 	    // Cenario 
-	    LocacaoService locacaoService = new LocacaoService(); 
 	    Filme filme = new Filme("Doutor estranho", 2, 5.0);
 	    //Usuario usuario = new Usuario("Marcelos 01");
 	  
@@ -162,7 +174,6 @@ public class LocacaoServiceTest {
 	 public void testeLocacao_FilmeVazio() throws LocadoraException, FilmeSemEstoqueException {
 		 
 		// Cenario
-		LocacaoService locacaoService = new LocacaoService();
 		Usuario usuario = new Usuario("Marcelos 01");
 		
 		excecaoEsperada.expect(LocadoraException.class);
