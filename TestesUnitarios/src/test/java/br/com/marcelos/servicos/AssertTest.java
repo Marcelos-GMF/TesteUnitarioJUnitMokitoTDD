@@ -16,8 +16,8 @@ public class AssertTest {
 		//Podemos trabalhar com valores:
 		//Interge, short, long, e ate boolean. 
 		/* A ordem importa 
-		 * O primeiro parametro é o resultado esperado
-		 * o segundo é o valor atual 
+		 * 1- parametro é o resultado esperado
+		 * 2- é o valor atual 
 		 * */
 		Assert.assertEquals(1, 1);
 		
