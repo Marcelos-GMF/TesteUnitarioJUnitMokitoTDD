@@ -15,6 +15,7 @@ import br.com.marcelos.entidades.Filme;
 import br.com.marcelos.entidades.Locacao;
 import br.com.marcelos.entidades.Usuario;
 import br.com.marcelos.exceptions.FilmeSemEstoqueException;
+import br.com.marcelos.exceptions.LocadoraException;
 import br.com.marcelos.utils.DataUtils;
 
 public class LocacaoServiceTest {
@@ -129,5 +130,54 @@ public class LocacaoServiceTest {
 	 * 
 	 * }
 	 */
+	
+	  /* Exemplo eu controlando os erros, ao inves do JUinit */
+	  @Test 
+	  public void testeLocacao_UsuarioVazio() throws FilmeSemEstoqueException  {
+	  
+	    // Cenario 
+	    LocacaoService locacaoService = new LocacaoService(); 
+	    Filme filme = new Filme("Doutor estranho", 2, 5.0);
+	    //Usuario usuario = new Usuario("Marcelos 01");
+	  
+	    // Ação 
+		try {
+			//Forma robusta de tratar um erro, para não lancar um falso positivo 
+			locacaoService.alugarFilme(null, filme);
+			 Assert.fail(); 
+		} catch (LocadoraException e) {
+			 Assert.assertThat(e.getMessage(),is("Usuario nao pode ser vazio!"));
+		} 
+		/*
+		 * Forma Robusta consegui executar e segue o fluxo. 
+		 * Diferente da forma nova
+		 * Nao executa o sysout
+		 * Aqui é executado o sysout no final da execucao
+		 */
+		System.out.println("Forma ROBUSTA");
+	 }
+	  
+	 /* Forma nova */
+	 @Test
+	 public void testeLocacao_FilmeVazio() throws LocadoraException, FilmeSemEstoqueException {
+		 
+		// Cenario
+		LocacaoService locacaoService = new LocacaoService();
+		Usuario usuario = new Usuario("Marcelos 01");
+		
+		excecaoEsperada.expect(LocadoraException.class);
+		excecaoEsperada.expectMessage("Filme não pode ser vazio!");
+		
+		// Ação
+		locacaoService.alugarFilme(usuario, null);
+		
+		/*
+		 * Forma nova nao executa nada depois da excecao. 
+		 * Diferente da forma robusta
+		 * Nao executa o sysout
+		 */
+		System.out.println("Forma nova");
+		
+	 }
 
 }

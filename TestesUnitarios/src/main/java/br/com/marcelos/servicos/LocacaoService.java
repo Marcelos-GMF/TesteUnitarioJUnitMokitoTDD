@@ -8,6 +8,7 @@ import br.com.marcelos.entidades.Filme;
 import br.com.marcelos.entidades.Locacao;
 import br.com.marcelos.entidades.Usuario;
 import br.com.marcelos.exceptions.FilmeSemEstoqueException;
+import br.com.marcelos.exceptions.LocadoraException;
 
 public class LocacaoService {
 	
@@ -15,10 +16,19 @@ public class LocacaoService {
 	 * @param usuario
 	 * @param filme
 	 * @return
+	 * @throws LocadoraException 
+	 * @throws FilmeSemEstoqueException 
 	 * @throws Exception 
 	 */
-	public Locacao alugarFilme(Usuario usuario, Filme filme) throws Exception {
+	public Locacao alugarFilme(Usuario usuario, Filme filme) throws LocadoraException, FilmeSemEstoqueException  {
 		
+
+		if(usuario == null) {
+			throw new LocadoraException("Usuario nao pode ser vazio!");
+		}
+		if(filme == null) {
+			throw new LocadoraException("Filme não pode ser vazio!");
+		}
 		if(filme.getEstoque() == 0) {
 			throw new FilmeSemEstoqueException();
 		}
