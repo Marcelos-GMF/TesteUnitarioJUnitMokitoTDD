@@ -14,8 +14,14 @@ public class LocacaoService {
 	 * @param usuario
 	 * @param filme
 	 * @return
+	 * @throws Exception 
 	 */
-	public Locacao alugarFilme(Usuario usuario, Filme filme) {
+	public Locacao alugarFilme(Usuario usuario, Filme filme) throws Exception {
+		
+		if(filme.getEstoque() == 0) {
+			throw new Exception("Sem filme no estoque!");
+		}
+		
 		Locacao locacao = new Locacao();
 		locacao.setFilme(filme);
 		locacao.setUsuario(usuario);
