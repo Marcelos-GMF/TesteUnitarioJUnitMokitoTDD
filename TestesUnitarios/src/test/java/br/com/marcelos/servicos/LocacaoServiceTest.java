@@ -6,8 +6,10 @@ import java.util.Date;
 
 import org.hamcrest.CoreMatchers;
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ErrorCollector;
@@ -23,6 +25,10 @@ import br.com.marcelos.utils.DataUtils;
 public class LocacaoServiceTest {
 	
 	private LocacaoService locacaoService;
+	
+	//Contador
+	//Variavel statica o JUnit nao reinicializa
+	//private static int totalizador;
 
 	/* Conseguimos agrupar os erros */
 	@Rule
@@ -32,17 +38,31 @@ public class LocacaoServiceTest {
 	@Rule
 	public ExpectedException excecaoEsperada = ExpectedException.none();
 	
+	@BeforeClass
+	public static void executaAntesClass() {
+	//	System.out.println("@BeforeClass");		
+	}
+	
+	@AfterClass
+	public static void executaDepoisClass() {
+	//	System.out.println("@AfterClass");
+	}
+	
 	@Before
 	public void executaAntes() {
-		System.out.println("Antes da execucao");
+		//System.out.println("Antes da execucao");
 		locacaoService = new LocacaoService();
+		//Variavel statica o JUnit nao reinicializa
+		//totalizador++;
+		//System.out.println("Totalizador = "+totalizador);
 	}
 	
 	@After
 	public void executaDepois() {
-		System.out.println("Depois da execucao");
+	//	System.out.println("Depois da execucao");
 	}
 
+	
 	@Test
 	public void marcelosLocacao() throws Exception {
 
