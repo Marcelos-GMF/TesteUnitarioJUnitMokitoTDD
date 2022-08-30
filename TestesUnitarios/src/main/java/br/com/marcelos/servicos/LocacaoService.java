@@ -45,8 +45,46 @@ public class LocacaoService {
 		locacao.setDataLocacao(new Date());
 		Double valorTotal = 0d;
 		//Para pegar o valor total dos filmes alugados
-		for(Filme filme : listarFilmes) {
-			valorTotal += filme.getPrecoLocacao();
+		
+		for(int i=0; i < listarFilmes.size(); i++) {
+			Filme filme = listarFilmes.get(i);
+			Double valorFilme = filme.getPrecoLocacao();
+			
+			switch (i) {
+			/** Laço para calcular um desconto de 75% no 3º Filme */
+			case 2: valorFilme = valorFilme * 0.75;
+				break;
+			/** Laço para calcular um desconto de 50% no 4º Filme */
+			case 3: valorFilme = valorFilme * 0.5;
+				break;
+			/** Laço para calcular um desconto de 75% no 5º Filme */	
+			case 4: valorFilme = valorFilme * 0.25;
+				break;
+			/** Laço para calcular um desconto de 100% no 6º Filme */				
+			case 5: valorFilme = 0d;
+				break;			
+			default:
+				break;
+			}
+			valorTotal += valorFilme;
+			
+			/** Laço para calcular um desconto de 75% no 3º Filme 
+			if(i == 2) {
+				valorFilme = valorFilme * 0.75;
+			}
+			/** Laço para calcular um desconto de 50% no 4º Filme 
+			if(i == 3) {
+				valorFilme = valorFilme * 0.5;
+			}
+			/** Laço para calcular um desconto de 75% no 5º Filme 
+			if(i == 4) {
+				valorFilme = valorFilme * 0.25;
+			}
+			/** Laço para calcular um desconto de 100% no 6º Filme 
+			if(i == 5) {
+				valorFilme = 0d;
+			}
+			valorTotal += valorFilme;*/
 		}
 		locacao.setValor(valorTotal);
 
