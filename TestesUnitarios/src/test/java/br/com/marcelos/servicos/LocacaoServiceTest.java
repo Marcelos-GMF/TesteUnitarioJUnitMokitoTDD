@@ -3,6 +3,7 @@ package br.com.marcelos.servicos;
 import static org.hamcrest.CoreMatchers.is;
 
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import org.hamcrest.CoreMatchers;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Assert;
+import org.junit.Assume;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
@@ -68,6 +70,11 @@ public class LocacaoServiceTest {
 	
 	@Test
 	public void deveAlugarFilme() throws Exception {
+		
+		 /* Função para executar um teste em um determinado dia da semana
+		  * No caso abaixo todos os dias <> de SABADO */
+		 Assume.assumeFalse(DataUtils.verificarDiaSemana(new Date(), Calendar.SATURDAY));
+		
 
 		// Cenario
 		Usuario usuario = new Usuario("Marcelos teste unitario");
@@ -308,6 +315,26 @@ public class LocacaoServiceTest {
 		 //Assert.assertThat(resultado.getValor(), is(13.0));
 		 //4+4+3+2+1=14 com desconto de 75% no 5º filme
 		 Assert.assertThat(resultado.getValor(), is(14.0));		 
+	 }
+	 
+	 @Test
+	 public void deveDevolverNaSegundaAoPegarNoSabado() throws LocadoraException, FilmeSemEstoqueException {
+		 
+		 /* Função para executar um teste em um determinado dia da semana */
+		 Assume.assumeTrue(DataUtils.verificarDiaSemana(new Date(), Calendar.SATURDAY));
+		 
+		 //Cenario
+		 Usuario usuario = new Usuario("Marcelos");
+		 List<Filme> listaFilmes = Arrays.asList(new Filme("Filme", 1, 5.0));
+		 
+		 //Acao
+		 Locacao retorno = locacaoService.alugarFilme(usuario, listaFilmes);
+		 
+		 //Verificacao
+		 boolean segunda = DataUtils.verificarDiaSemana(retorno.getDataRetorno(), Calendar.MONDAY);
+		 
+		 Assert.assertTrue(segunda);
+		 
 	 }
 
 }

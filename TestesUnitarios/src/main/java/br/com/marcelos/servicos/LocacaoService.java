@@ -2,6 +2,7 @@ package br.com.marcelos.servicos;
 
 import static br.com.marcelos.utils.DataUtils.adicionarDias;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import br.com.marcelos.entidades.Locacao;
 import br.com.marcelos.entidades.Usuario;
 import br.com.marcelos.exceptions.FilmeSemEstoqueException;
 import br.com.marcelos.exceptions.LocadoraException;
+import br.com.marcelos.utils.DataUtils;
 
 public class LocacaoService {
 	
@@ -44,8 +46,7 @@ public class LocacaoService {
 		locacao.setUsuario(usuario);
 		locacao.setDataLocacao(new Date());
 		Double valorTotal = 0d;
-		//Para pegar o valor total dos filmes alugados
-		
+		//Para pegar o valor total dos filmes alugados		
 		for(int i=0; i < listarFilmes.size(); i++) {
 			Filme filme = listarFilmes.get(i);
 			Double valorFilme = filme.getPrecoLocacao();
@@ -91,6 +92,9 @@ public class LocacaoService {
 		//Entrega no dia seguinte
 		Date dataEntrega = new Date();
 		dataEntrega = adicionarDias(dataEntrega, 1);
+		if(DataUtils.verificarDiaSemana(dataEntrega, Calendar.SUNDAY)) {
+			dataEntrega = adicionarDias(dataEntrega, 1);
+		}
 		locacao.setDataRetorno(dataEntrega);
 		
 		//Salvando a locacao...	
