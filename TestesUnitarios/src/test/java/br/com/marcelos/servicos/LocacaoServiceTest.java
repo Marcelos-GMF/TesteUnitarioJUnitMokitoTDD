@@ -2,7 +2,9 @@ package br.com.marcelos.servicos;
 
 import static org.hamcrest.CoreMatchers.is;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import org.hamcrest.CoreMatchers;
 import org.junit.After;
@@ -25,6 +27,7 @@ import br.com.marcelos.utils.DataUtils;
 public class LocacaoServiceTest {
 	
 	private LocacaoService locacaoService;
+	//private ArrayList<Filme> listarFilmes = new ArrayList<Filme>();
 	
 	//Contador
 	//Variavel statica o JUnit nao reinicializa
@@ -64,14 +67,16 @@ public class LocacaoServiceTest {
 
 	
 	@Test
-	public void marcelosLocacao() throws Exception {
+	public void deveAlugarFilmeComSucesso() throws Exception {
 
 		// Cenario
 		Usuario usuario = new Usuario("Marcelos teste unitario");
-		Filme filme = new Filme("Marcelos Filme", 2, 5.0);
+		/* Cria e inclui na lista de filmes direto */
+		List<Filme> listarFilmes = Arrays.asList(new Filme("Marcelos Filme", 2, 5.0));
+		//listarFilmes.add(filme);
 
 		// Acao
-		Locacao locacao = locacaoService.alugarFilme(usuario, filme);
+		Locacao locacao = locacaoService.alugarFilme(usuario, listarFilmes);
 
 		error.checkThat(locacao.getValor(), CoreMatchers.is(CoreMatchers.equalTo(5.0)));
 		error.checkThat("Data locacao = ", DataUtils.isMesmaData(locacao.getDataLocacao(), new Date()), is(true));
@@ -122,10 +127,11 @@ public class LocacaoServiceTest {
 
 		// Cenario
 		Usuario usuario = new Usuario("Marcelos 01");
-		Filme filme = new Filme("Doutor estranho", 0, 5.0);
+		List<Filme> listarFilmes = Arrays.asList(new Filme("Doutor estranho", 0, 5.0));
+
 
 		// Ação
-		locacaoService.alugarFilme(usuario, filme);
+		locacaoService.alugarFilme(usuario, listarFilmes);
 
 	}
 
@@ -169,13 +175,14 @@ public class LocacaoServiceTest {
 	  public void testeLocacao_UsuarioVazio() throws FilmeSemEstoqueException  {
 	  
 	    // Cenario 
-	    Filme filme = new Filme("Doutor estranho", 2, 5.0);
+	    List<Filme> listarFilmes = Arrays.asList(new Filme("Doutor estranho", 2, 5.0));
 	    //Usuario usuario = new Usuario("Marcelos 01");
+	    
 	  
 	    // Ação 
 		try {
 			//Forma robusta de tratar um erro, para não lancar um falso positivo 
-			locacaoService.alugarFilme(null, filme);
+			locacaoService.alugarFilme(null, listarFilmes);
 			 Assert.fail(); 
 		} catch (LocadoraException e) {
 			 Assert.assertThat(e.getMessage(),is("Usuario nao pode ser vazio!"));
