@@ -67,7 +67,7 @@ public class LocacaoServiceTest {
 
 	
 	@Test
-	public void deveAlugarFilmeComSucesso() throws Exception {
+	public void deveAlugarFilme() throws Exception {
 
 		// Cenario
 		Usuario usuario = new Usuario("Marcelos teste unitario");
@@ -123,7 +123,7 @@ public class LocacaoServiceTest {
 	 */
 	// @Test(expected = Exception.class)
 	@Test(expected = FilmeSemEstoqueException.class) // Minha exception especifica
-	public void testeLocacao_semFilmeEstoque() throws Exception {
+	public void naoDeveAlugarFilmeSemEstoque() throws Exception {
 
 		// Cenario
 		Usuario usuario = new Usuario("Marcelos 01");
@@ -172,7 +172,7 @@ public class LocacaoServiceTest {
 	
 	  /* Exemplo eu controlando os erros, ao inves do JUinit */
 	  @Test 
-	  public void testeLocacao_UsuarioVazio() throws FilmeSemEstoqueException  {
+	  public void naoDeveAlugarFilmeSemUsuario() throws FilmeSemEstoqueException  {
 	  
 	    // Cenario 
 	    List<Filme> listarFilmes = Arrays.asList(new Filme("Doutor estranho", 2, 5.0));
@@ -198,7 +198,7 @@ public class LocacaoServiceTest {
 	  
 	 /* Forma nova */
 	 @Test
-	 public void testeLocacao_FilmeVazio() throws LocadoraException, FilmeSemEstoqueException {
+	 public void naoDeveAlugarFilmeSemFilme() throws LocadoraException, FilmeSemEstoqueException {
 		 
 		// Cenario
 		Usuario usuario = new Usuario("Marcelos 01");
