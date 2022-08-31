@@ -12,6 +12,7 @@ import br.com.marcelos.entidades.Usuario;
 import br.com.marcelos.exceptions.FilmeSemEstoqueException;
 import br.com.marcelos.exceptions.LocadoraException;
 import br.com.marcelos.utils.DataUtils;
+import buildermaster.BuilderMaster;
 
 public class LocacaoService {
 	
@@ -99,6 +100,10 @@ public class LocacaoService {
 		//TODO adicionar metodo para salvar
 		
 		return locacao;
+	}
+	
+	public static void main(String[] args) {
+		new BuilderMaster().gerarCodigoClasse(Locacao.class);
 	}
 
 }
