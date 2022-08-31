@@ -15,6 +15,8 @@ import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
 
 import br.com.marcelos.builder.FilmeBuilder;
+import br.com.marcelos.daos.LocacaoDAO;
+import br.com.marcelos.daos.LocacaoDAOFake;
 import br.com.marcelos.entidades.Filme;
 import br.com.marcelos.entidades.Locacao;
 import br.com.marcelos.entidades.Usuario;
@@ -39,6 +41,9 @@ public class CalculoValorLocacaoTest {
 	@Before
 	public void iniciarCicloVida() {
 		locacaoService = new LocacaoService();
+		LocacaoDAO dao = new LocacaoDAOFake();
+		//Injecao de dependencia
+		locacaoService.setLocacaoDAO(dao);
 	}
 	
 	private static Filme filme1 = FilmeBuilder.umFilme().agora(); //new Filme("Filme1", 2, 4.0);	

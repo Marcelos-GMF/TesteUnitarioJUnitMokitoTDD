@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import br.com.marcelos.daos.LocacaoDAO;
 import br.com.marcelos.entidades.Filme;
 import br.com.marcelos.entidades.Locacao;
 import br.com.marcelos.entidades.Usuario;
@@ -15,6 +16,8 @@ import br.com.marcelos.utils.DataUtils;
 import buildermaster.BuilderMaster;
 
 public class LocacaoService {
+	
+	private LocacaoDAO locacaoDAO;
 	
 	/**
 	 * @param usuario
@@ -97,9 +100,13 @@ public class LocacaoService {
 		locacao.setDataRetorno(dataEntrega);
 		
 		//Salvando a locacao...	
-		//TODO adicionar metodo para salvar
+		locacaoDAO.salvar(locacao);
 		
 		return locacao;
+	}
+	
+	public void setLocacaoDAO(LocacaoDAO dao) {
+		this.locacaoDAO = dao; 
 	}
 	
 	public static void main(String[] args) {
