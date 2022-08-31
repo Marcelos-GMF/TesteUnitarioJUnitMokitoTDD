@@ -24,7 +24,6 @@ import br.com.marcelos.entidades.Locacao;
 import br.com.marcelos.entidades.Usuario;
 import br.com.marcelos.exceptions.FilmeSemEstoqueException;
 import br.com.marcelos.exceptions.LocadoraException;
-import br.com.marcelos.matchers.DiaSemanaMatcher;
 import br.com.marcelos.matchers.MatchersProprios;
 import br.com.marcelos.utils.DataUtils;
 
@@ -89,8 +88,12 @@ public class LocacaoServiceTest {
 
 		error.checkThat(locacao.getValor(), CoreMatchers.is(CoreMatchers.equalTo(5.0)));
 		error.checkThat("Data locacao = ", DataUtils.isMesmaData(locacao.getDataLocacao(), new Date()), is(true));
-		error.checkThat("Data do retorno = ",
-				DataUtils.isMesmaData(locacao.getDataRetorno(), DataUtils.obterDataComDiferencaDias(1)), is(true));
+		//error.checkThat("Data do retorno = ",DataUtils.isMesmaData(locacao.getDataRetorno(), DataUtils.obterDataComDiferencaDias(1)), is(true));
+
+		//Meu proprio Matcher
+		error.checkThat(locacao.getDataRetorno(), MatchersProprios.ehHojeComDiferencaDias(1));
+		//error.checkThat(locacao.getDataRetorno(), MatchersProprios.ehHoje());
+		
 
 		// Verificacao
 		// System.out.println(locacao.getValor() == 5.0);
