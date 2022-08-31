@@ -24,6 +24,8 @@ import br.com.marcelos.entidades.Locacao;
 import br.com.marcelos.entidades.Usuario;
 import br.com.marcelos.exceptions.FilmeSemEstoqueException;
 import br.com.marcelos.exceptions.LocadoraException;
+import br.com.marcelos.matchers.DiaSemanaMatcher;
+import br.com.marcelos.matchers.MatchersProprios;
 import br.com.marcelos.utils.DataUtils;
 
 public class LocacaoServiceTest {
@@ -331,9 +333,14 @@ public class LocacaoServiceTest {
 		 Locacao retorno = locacaoService.alugarFilme(usuario, listaFilmes);
 		 
 		 //Verificacao
-		 boolean segunda = DataUtils.verificarDiaSemana(retorno.getDataRetorno(), Calendar.MONDAY);
+		 //Antes da criacao do Matcher
+		 //boolean segunda = DataUtils.verificarDiaSemana(retorno.getDataRetorno(), Calendar.MONDAY);		 
+		 //Assert.assertTrue(segunda);
 		 
-		 Assert.assertTrue(segunda);
+		 //Depois do Matcher criado
+		 //Assert.assertThat(retorno.getDataRetorno(), new DiaSemanaMatcher(Calendar.MONDAY));
+		 //Assert.assertThat(retorno.getDataRetorno(), MatchersProprios.caiEm(Calendar.SUNDAY)); //Testar mensagem de erro
+		 Assert.assertThat(retorno.getDataRetorno(), MatchersProprios.caiNumaSegunda());
 		 
 	 }
 
