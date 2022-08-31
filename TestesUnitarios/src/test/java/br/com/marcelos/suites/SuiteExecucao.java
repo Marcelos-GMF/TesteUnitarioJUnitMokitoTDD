@@ -11,7 +11,9 @@ import br.com.marcelos.servicos.CalculoValorLocacaoTest;
 import br.com.marcelos.servicos.LocacaoServiceTest;
 
 /*Classe muito interessante, nela podemos executar quantos teste for necessario*/
-@RunWith(Suite.class)
+
+
+//@RunWith(Suite.class) Comentei para não executar o teste
 //Aqui informamos todos os testes que são executados
 @SuiteClasses({
 	CalculadoraTest.class,
