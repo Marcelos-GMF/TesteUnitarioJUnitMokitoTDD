@@ -1,4 +1,4 @@
-package br.com.marcelos.servicos;
+ package br.com.marcelos.servicos;
 
 import static org.hamcrest.CoreMatchers.is;
 
@@ -14,6 +14,7 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
 
+import br.com.marcelos.builder.FilmeBuilder;
 import br.com.marcelos.entidades.Filme;
 import br.com.marcelos.entidades.Locacao;
 import br.com.marcelos.entidades.Usuario;
@@ -40,12 +41,12 @@ public class CalculoValorLocacaoTest {
 		locacaoService = new LocacaoService();
 	}
 	
-	private static Filme filme1 = new Filme("Filme1", 2, 4.0);	
-	private static Filme filme2 = new Filme("Filme2", 2, 4.0);
-	private static Filme filme3 = new Filme("Filme3", 2, 4.0);
-	private static Filme filme4 = new Filme("Filme4", 2, 4.0);
-	private static Filme filme5 = new Filme("Filme5", 2, 4.0);
-	private static Filme filme6 = new Filme("Filme6", 2, 4.0);
+	private static Filme filme1 = FilmeBuilder.umFilme().agora(); //new Filme("Filme1", 2, 4.0);	
+	private static Filme filme2 = FilmeBuilder.umFilme().agora(); //new Filme("Filme2", 2, 4.0);
+	private static Filme filme3 = FilmeBuilder.umFilme().agora(); //new Filme("Filme3", 2, 4.0);
+	private static Filme filme4 = FilmeBuilder.umFilme().agora(); //new Filme("Filme4", 2, 4.0);
+	private static Filme filme5 = FilmeBuilder.umFilme().agora(); //new Filme("Filme5", 2, 4.0);
+	private static Filme filme6 = FilmeBuilder.umFilme().agora(); //new Filme("Filme6", 2, 4.0);
 			
 	/* Criando metodo de objetos para as colecoes */
 	@Parameters(name = "Indece: {index} {2}")//Valor que vai ser impresso no log do teste.

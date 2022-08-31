@@ -64,8 +64,6 @@ public class LocacaoService {
 			/** Laço para calcular um desconto de 100% no 6º Filme */				
 			case 5: valorFilme = 0d;
 				break;			
-			default:
-				break;
 			}
 			valorTotal += valorFilme;
 			
