@@ -13,10 +13,10 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
+import org.mockito.Mockito;
 
 import br.com.marcelos.builder.FilmeBuilder;
 import br.com.marcelos.daos.LocacaoDAO;
-import br.com.marcelos.daos.LocacaoDAOFake;
 import br.com.marcelos.entidades.Filme;
 import br.com.marcelos.entidades.Locacao;
 import br.com.marcelos.entidades.Usuario;
@@ -41,8 +41,10 @@ public class CalculoValorLocacaoTest {
 	@Before
 	public void iniciarCicloVida() {
 		locacaoService = new LocacaoService();
-		LocacaoDAO dao = new LocacaoDAOFake();
+		//LocacaoDAO dao = new LocacaoDAOFake();
 		//Injecao de dependencia
+		/** Nesse momento estamos criando um objeto mockado*/
+		LocacaoDAO dao = Mockito.mock(LocacaoDAO.class);
 		locacaoService.setLocacaoDAO(dao);
 	}
 	

@@ -18,11 +18,11 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ErrorCollector;
 import org.junit.rules.ExpectedException;
+import org.mockito.Mockito;
 
 import br.com.marcelos.builder.FilmeBuilder;
 import br.com.marcelos.builder.UsuarioBuilder;
 import br.com.marcelos.daos.LocacaoDAO;
-import br.com.marcelos.daos.LocacaoDAOFake;
 import br.com.marcelos.entidades.Filme;
 import br.com.marcelos.entidades.Locacao;
 import br.com.marcelos.entidades.Usuario;
@@ -65,8 +65,11 @@ public class LocacaoServiceTest {
 		//Variavel statica o JUnit nao reinicializa
 		//totalizador++;
 		//System.out.println("Totalizador = "+totalizador);
-		LocacaoDAO dao = new LocacaoDAOFake();
+		
+		//LocacaoDAO dao = new LocacaoDAOFake();
 		//Injecao de dependencia
+		/** Nesse momento estamos criando um objeto mockado*/
+		LocacaoDAO dao = Mockito.mock(LocacaoDAO.class);
 		locacaoService.setLocacaoDAO(dao);
 	}
 	
